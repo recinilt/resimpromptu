@@ -134,6 +134,8 @@
 </head>
 <body>
   <h1>🎨 AI Görsel Prompt Seçici: Hayalinizdeki Sanatı Oluşturun</h1>
+  <button onclick="randomGenerate()" style="margin-bottom:20px; padding:10px 20px; background:#2196F3; color:white; border:none; border-radius:5px; cursor:pointer;">🎲 Rastgele Oluştur (Random Generate)</button>
+
   <h2>Seçim yaptıkça, en altta prompt otomatik oluşturulur.</h2>
   <h3>recepyeni@gmail.com</h3>
 
@@ -1196,6 +1198,31 @@
     alert('Kopyalanacak bir prompt yok!');
   }
 }
+
+function randomGenerate() {
+  // Önce mevcut seçimleri temizleyelim
+  clearSelections();
+
+  // Her kategori için bir tane rastgele seç
+  document.querySelectorAll('.grid').forEach(grid => {
+    const options = Array.from(grid.querySelectorAll('.option'));
+    if (options.length > 0) {
+      const randomOption = options[Math.floor(Math.random() * options.length)];
+      const category = grid.getAttribute('data-category');
+      const text = randomOption.textContent;
+
+      selectedOptions.push({ category, text });
+      randomOption.classList.add('selected');
+    }
+  });
+
+  // Promptu güncelle
+  updatePrompt();
+
+  // Sayfayı oluşan prompt kısmına kaydır
+  document.getElementById('prompt-output').scrollIntoView({ behavior: 'smooth' });
+}
+
 
     </script>
     
